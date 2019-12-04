@@ -84,7 +84,7 @@ func BackendFactoryWithInvoker(l logging.Logger, bf proxy.BackendFactory, invoke
 				return nil, errBadStatusCode
 			}
 
-			data := AwsLambdaResponse
+			var data AwsLambdaResponse
 			if err := json.Unmarshal(result.Payload, &data); err != nil {
 				return nil, err
 			}
