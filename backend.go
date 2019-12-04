@@ -75,7 +75,11 @@ func BackendFactoryWithInvoker(l logging.Logger, bf proxy.BackendFactory, invoke
 				return nil, errBadStatusCode
 			}
 
-			data := map[string]interface{}{}
+			data := map[string]interface{}{
+				"statusCode": map[int],
+				"headers": map[string]interface{}{},
+				"body": map[string]
+			}
 			if err := json.Unmarshal(result.Payload, &data); err != nil {
 				return nil, err
 			}
