@@ -32,6 +32,15 @@ type Invoker interface {
 	InvokeWithContext(aws.Context, *lambda.InvokeInput, ...request.Option) (*lambda.InvokeOutput, error)
 }
 
+type AwsLambdaResponse struct {
+	StatusCode int    `json:"statusCode"`
+	Body       string `json:"body"`
+	Headers    struct {
+		ContentType string `json:"Content-Type"`
+	} `json:"headers"`
+}
+
+
 func BackendFactory(l logging.Logger, bf proxy.BackendFactory) proxy.BackendFactory {
 	return BackendFactoryWithInvoker(l, bf, invokerFactory)
 }
@@ -75,11 +84,7 @@ func BackendFactoryWithInvoker(l logging.Logger, bf proxy.BackendFactory, invoke
 				return nil, errBadStatusCode
 			}
 
-			data := map[string]interface{}{
-				"statusCode": map[int],
-				"headers": map[string]interface{}{},
-				"body": map[string]
-			}
+			data := AwsLambdaResponse
 			if err := json.Unmarshal(result.Payload, &data); err != nil {
 				return nil, err
 			}
