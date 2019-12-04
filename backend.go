@@ -81,10 +81,10 @@ func BackendFactoryWithInvoker(l logging.Logger, bf proxy.BackendFactory, invoke
 			}
 			response := &proxy.Response{
 				Metadata: proxy.Metadata{
-					StatusCode: int(*result.StatusCode),
-					Headers:    map[string][]string{},
+					StatusCode: int(*data.statusCode),
+					Headers:    data.headers,
 				},
-				Data:       data,
+				Data:       data.body,
 				IsComplete: true,
 			}
 
