@@ -33,7 +33,7 @@ type Invoker interface {
 }
 
 func BackendFactory(l logging.Logger, bf proxy.BackendFactory) proxy.BackendFactory {
-	return BackendFactoryWithInvoker(l logging.Logger, bf, invokerFactory)
+	return BackendFactoryWithInvoker(l, bf, invokerFactory)
 }
 
 func invokerFactory(o *Options) Invoker {
