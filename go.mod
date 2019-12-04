@@ -1,6 +1,5 @@
 module github.com/pderaaij/krakend-lambda
 
-
 go 1.12
 
 require (
