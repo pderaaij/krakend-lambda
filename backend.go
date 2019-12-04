@@ -75,20 +75,16 @@ func BackendFactoryWithInvoker(l logging.Logger, bf proxy.BackendFactory, invoke
 				return nil, errBadStatusCode
 			}
 
-			data := map[string]interface{}{
-				"statusCode": map[int],
-				"headers": map[string]interface{}{},
-				"body": map[string]
-			}
+			data := map[string]interface{}{}
 			if err := json.Unmarshal(result.Payload, &data); err != nil {
 				return nil, err
 			}
 			response := &proxy.Response{
 				Metadata: proxy.Metadata{
-					StatusCode: int(*data.statusCode),
-					Headers:    data.headers,
+					StatusCode: int(*data["statusCode"]),
+					Headers:    data["headers"],
 				},
-				Data:       data.body,
+				Data:       data["body"],
 				IsComplete: true,
 			}
 
